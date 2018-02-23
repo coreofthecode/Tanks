@@ -1,5 +1,8 @@
 package com.company;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
 public class Game implements Runnable {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
@@ -14,12 +17,22 @@ public class Game implements Runnable {
 
     private boolean running;
     private Thread gameThread;
-
+    private Graphics2D graphics;
+    private Input input;
+    // temp
+    float x =350;
+    float y = 250;
+    float delta = 0;
+    float radius = 50;
+    float speed = 3;
+    //temp end
     public Game() {
 
         running = false;
         Display.create(WIDTH, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
-
+        graphics = Display.getGraphics();
+        input = new Input();
+        Display.addInputListener(input);
     }
 
     public synchronized void start() {
@@ -46,12 +59,21 @@ public class Game implements Runnable {
 
     private void update() {
 
+        if(input.getKey(KeyEvent.VK_UP));
+            y -= speed;
+        if(input.getKey(KeyEvent.VK_DOWN));
+            y += speed;
+        if(input.getKey(KeyEvent.VK_LEFT));
+            x -= speed;
+        if(input.getKey(KeyEvent.VK_RIGHT));
+            x += speed;
 
     }
 
     private void render() {
         Display.clear();
-
+        graphics.setColor(Color.white);
+        graphics.fillOval( (int) (x+(Math.sin(delta)*200)), (int) (y) ,(int)(radius*2),(int)(radius*2));
         Display.swapBuffers();
 
 
